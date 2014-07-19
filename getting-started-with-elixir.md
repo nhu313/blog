@@ -1,6 +1,6 @@
 blog
 ====
-Whenever I try to learn a new language, I often do Roman Numeral kata in that language. Because I've done it so many time, I know how to solve it. Thus I can focus on learning the syntax. 
+Whenever I try to learn a new language, I usually do the Roman Numeral kata in that language. The main point here is to focus on learning the syntax. The Roman Numeral kata doesn't cover everything, but it has loop, array, string, enough to a feel of the language. 
 
 I will make the assumption that you already know how to code so I won't go into a lot of details. This is more of a....how do I translate Ruby code into Elixir. Elixir is a functional language. The way you approach a problem with Elixir is probably different than the way you do in Ruby, an object orientented language. But the point of this post is to get you familiar with Elixir syntax. 
 
@@ -42,10 +42,64 @@ defmodule RomanNumeralTest do
   end
 end
 ```
-The syntax here is pretty easy to understand. Elixir uses `defmodule` to group functions together, similar to a class in Ruby. But remember, Elixir is functional so you can't initiate the class to create an instance. Here is the syntax on how to create a module.
+The syntax here is straight forward. Elixir uses `defmodule` to group functions together. Think of the Math (http://www.ruby-doc.org/core-2.1.2/Math.html) module in Ruby. Here is the syntax on how to create a module.
 ```elixir
 defmodule ModuleName do
 
 end
 ```
-In the next line, we `use ExUnit.Case` 
+In the next line, we `use ExUnit.Case` \\TODO ADD DESCRIPTION
+
+Let's delete the generate test and create our own. 
+
+```elixir
+  test "converts 1" do
+    assert RomanNumeral.converts(1) == "I"
+  end
+```
+In this test I say, I called the function `converts` from the RomanNumeral module. I expect it to equal to String of "I". When you run the test, you should get this error.
+
+```bash
+$ mix test
+
+1) test converts 1 (RomanNumeralTest)
+     test/roman_numeral_test.exs:4
+     ** (UndefinedFunctionError) undefined function: RomanNumeral.converts/1
+     stacktrace:
+       (roman_numeral) RomanNumeral.converts(1)
+       test/roman_numeral_test.exs:5
+```
+The error states that the test "converts 1" failed in the file `test/roman_numeral_test.exs` on line 4. The failure is that it can't find the function converts in the module RomanNumeral with 1 params (`RomanNumeral.converts/1`). 
+
+Let's fix that by opening the `lib/roman_numeral.ex` and add this in.
+
+```elixir
+defmodule RomanNumeral do
+
+  def converts(num) do
+
+  end
+end
+```
+
+Now when you run the test, you should get this error.
+```bash
+$ mix test
+lib/roman_numeral.ex:3: warning: variable num is unused
+Compiled lib/roman_numeral.ex
+Generated roman_numeral.app
+
+  1) test converts 1 (RomanNumeralTest)
+     test/roman_numeral_test.exs:4
+     Assertion with == failed
+     code: RomanNumeral.converts(1) == "I"
+     lhs:  nil
+     rhs:  "I"
+     stacktrace:
+       test/roman_numeral_test.exs:5
+
+Finished in 0.03 seconds (0.03s on load, 0.00s on tests)
+1 tests, 1 failures
+
+```
+The only thing that you should be confused about is `lhs` and `rhs`. `lhs` stands for left hand side. `rhs` stands for right hand side. The error states that the assertion fail because the left hand side didn't equal to the right hand side.
