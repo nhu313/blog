@@ -42,7 +42,7 @@ First, run the test.
 
 You should see one passing test that mix created. Let's open the test file and see what that test looks like. 
 ```elixir
-# roman_numeral_test.exs
+#test/roman_numeral_test.exs
 defmodule RomanNumeralTest do
   use ExUnit.Case
 
@@ -59,32 +59,32 @@ end
 ```
 In the next line, we `use ExUnit.Case` \\TODO ADD DESCRIPTION
 
-Let's delete the generate test and create our own. 
+Let's delete the generate test and create our first tes. 
 
 ```elixir
-# roman_numeral_test.exs
-  test "converts 1" do
-    assert RomanNumeral.converts(1) == "I"
+#test/roman_numeral_test.exs
+  test "converts 0" do
+    assert RomanNumeral.converts(0) == ""
   end
 ```
-In this test I say, I called the function `converts` from the RomanNumeral module. I expect it to equal to String of "I". When you run the test in the command line, you should get this error.
+In this test I say, I called the function `converts` from the RomanNumeral module. I expect it to equal to an empty String "". When you run the test in the command line, you should get this error.
 
 ```bash
 $ mix test
 
-1) test converts 1 (RomanNumeralTest)
+1) test converts 0 (RomanNumeralTest)
      test/roman_numeral_test.exs:4
      ** (UndefinedFunctionError) undefined function: RomanNumeral.converts/1
      stacktrace:
        (roman_numeral) RomanNumeral.converts(1)
        test/roman_numeral_test.exs:5
 ```
-The error states that the test "converts 1" failed in the file `test/roman_numeral_test.exs` on line 4. The failure is that it can't find the function converts in the module RomanNumeral with 1 params (`RomanNumeral.converts/1`). 
+The error states that the test "converts 0" failed in the file `test/roman_numeral_test.exs` on line 4. The failure is that it can't find the function converts in the module RomanNumeral with 1 params (`RomanNumeral.converts/1`). 
 
 Let's fix that by opening the `lib/roman_numeral.ex` and add this in.
 
 ```elixir
-# lib/roman_numeral.ex
+#lib/roman_numeral.ex
 defmodule RomanNumeral do
 
   def converts(num) do
@@ -100,12 +100,12 @@ lib/roman_numeral.ex:3: warning: variable num is unused
 Compiled lib/roman_numeral.ex
 Generated roman_numeral.app
 
-  1) test converts 1 (RomanNumeralTest)
+  1) test converts 0 (RomanNumeralTest)
      test/roman_numeral_test.exs:4
      Assertion with == failed
-     code: RomanNumeral.converts(1) == "I"
+     code: RomanNumeral.converts(0) == ""
      lhs:  nil
-     rhs:  "I"
+     rhs:  ""
      stacktrace:
        test/roman_numeral_test.exs:5
 
@@ -113,13 +113,22 @@ Finished in 0.03 seconds (0.03s on load, 0.00s on tests)
 1 tests, 1 failures
 
 ```
-The only thing that you should be confused about is `lhs` and `rhs`. `lhs` stands for left hand side. `rhs` stands for right hand side. The error states that the assertion fail because the left hand side didn't equal to the right hand side. Remember that I didn't specify anything in the converts method, so by default it returns nil (also known as null in some language). 
+The only thing that you should be confused about is `lhs` and `rhs`. `lhs` stands for left hand side. `rhs` stands for right hand side. The error states that the assertion fail because the left hand side didn't equal to the right hand side. Remember that I didn't specify anything in the converts method, so by default it returns nil (also known as null in some languages). 
 
-Let's make the test passed with the simpliest case possible. Change the converts method to return "I".
+Let's make the test passed by making the function returns "".
 ```elixir
-# lib/roman_numeral.ex
+#lib/roman_numeral.ex
   def converts(num) do
-    "I"
+    ""
   end
 ```
-Now run `mix test` to make sure everything pass. 
+Now run `mix test` to make sure everything passes. 
+
+Let's add our second test. 
+
+```elixir
+#test/roman_numeral_test.exs
+  test "converts 1" do
+    assert RomanNumeral.converts(1) == "I"
+  end
+```
