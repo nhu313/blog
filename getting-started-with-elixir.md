@@ -4,11 +4,19 @@ Whenever I try to learn a new language, I usually do the Roman Numeral kata in t
 
 I will make the assumption that you already know how to code so I won't go into a lot of details. This is more of a....how do I translate Ruby code into Elixir. Elixir is a functional language. The way you approach a problem with Elixir is probably different than the way you do in Ruby, an object orientented language. But the point of this post is to get you familiar with Elixir syntax. 
 
+Note:
+When I say run, it means I ran the command in the terminal. It's often depicted with `$`.
+When I edit a file, I will specify which file on the first line with a comment, e.g. `#test/roman_numeral_test.exs`. This means in the `test` directory, I edited the `roman_numeral_test.exs` file.
+
 Create a new project call roman_numeral
-`mix new roman_numeral`
+```bash
+$ mix new roman_numeral
+```
 
 Navigate into that project
-`cd roman_numeral`
+```bash
+$ cd roman_numeral
+```
 
 This is the tree structure. 
 ```bash
@@ -33,7 +41,8 @@ First, run the test.
 `mix test`
 
 You should see one passing test that mix created. Let's open the test file and see what that test looks like. 
-```elixir 
+```elixir
+# roman_numeral_test.exs
 defmodule RomanNumeralTest do
   use ExUnit.Case
 
@@ -53,11 +62,12 @@ In the next line, we `use ExUnit.Case` \\TODO ADD DESCRIPTION
 Let's delete the generate test and create our own. 
 
 ```elixir
+# roman_numeral_test.exs
   test "converts 1" do
     assert RomanNumeral.converts(1) == "I"
   end
 ```
-In this test I say, I called the function `converts` from the RomanNumeral module. I expect it to equal to String of "I". When you run the test, you should get this error.
+In this test I say, I called the function `converts` from the RomanNumeral module. I expect it to equal to String of "I". When you run the test in the command line, you should get this error.
 
 ```bash
 $ mix test
@@ -74,6 +84,7 @@ The error states that the test "converts 1" failed in the file `test/roman_numer
 Let's fix that by opening the `lib/roman_numeral.ex` and add this in.
 
 ```elixir
+# lib/roman_numeral.ex
 defmodule RomanNumeral do
 
   def converts(num) do
@@ -102,4 +113,13 @@ Finished in 0.03 seconds (0.03s on load, 0.00s on tests)
 1 tests, 1 failures
 
 ```
-The only thing that you should be confused about is `lhs` and `rhs`. `lhs` stands for left hand side. `rhs` stands for right hand side. The error states that the assertion fail because the left hand side didn't equal to the right hand side.
+The only thing that you should be confused about is `lhs` and `rhs`. `lhs` stands for left hand side. `rhs` stands for right hand side. The error states that the assertion fail because the left hand side didn't equal to the right hand side. Remember that I didn't specify anything in the converts method, so by default it returns nil (also known as null in some language). 
+
+Let's make the test passed with the simpliest case possible. Change the converts method to return "I".
+```elixir
+# lib/roman_numeral.ex
+  def converts(num) do
+    "I"
+  end
+```
+Now run `mix test` to make sure everything pass. 
