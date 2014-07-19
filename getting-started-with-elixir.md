@@ -6,6 +6,7 @@ I will make the assumption that you already know how to code so I won't go into 
 
 Note:
 When I say run, it means I ran the command in the terminal. It's often depicted with `$`.
+When I say run test, I mean in the command line, type `mix test`.
 When I edit a file, I will specify which file on the first line with a comment, e.g. `#test/roman_numeral_test.exs`. This means in the `test` directory, I edited the `roman_numeral_test.exs` file.
 
 Create a new project call roman_numeral
@@ -130,5 +131,48 @@ Let's add our second test.
 #test/roman_numeral_test.exs
   test "converts 1" do
     assert RomanNumeral.converts(1) == "I"
+  end
+```
+
+Rerun the test will give you a failure. I can make this pass by adding an if statement. http://elixir-lang.org/getting_started/5.html#toc_4
+
+```elixir
+#lib/roman_numeral.ex
+  def converts(num) do
+    if num < 1 do
+      ""
+    else
+      "I"
+    end
+  end
+```
+We can also achieve the same result with a guard statement. 
+
+```elixir
+#lib/roman_numeral.ex
+  def converts(num) when num < 1 do
+    ""
+  end
+
+  def converts(num) do
+    "I"
+  end
+```
+Note that I created two methods which is similar to an if statement. The first method has `when num < 1 do` which is what we call a guard statement. It says call me if the number is less than 1, then I will return `""`. If that condition is not met, then it goes to the next function of the same name and parameters. It will continue to do so until it finds a function that matches. In this case, our next function is `def converts(num) do` which doesn't have a guard statement, therefore it "matches" so we get `"I"`.
+
+Ok. If you run the test now, it should still pass. 
+
+Let's add another test. 
+```elixir
+#lib/roman_numeral.ex
+  test "converts 2" do
+    assert RomanNumeral.converts(2) == "II"
+  end
+```
+There are two ways to do this. One, we can multiply the number by the Roman numeral. 
+```elixir
+#lib/roman_numeral.ex
+  def converts(num) do
+    String.duplicate("I", num)
   end
 ```
