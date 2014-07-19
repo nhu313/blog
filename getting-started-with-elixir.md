@@ -176,3 +176,4 @@ There are two ways to do this. One, we can multiply the number by the Roman nume
     String.duplicate("I", num)
   end
 ```
+Or you can do it through a loop. I will use a loop to solve this problem because loops are fun! Remember Elixir is a functional language. So how can you loop without changing state of a variable. Take a deep breath because we're going to learn recursion. 
