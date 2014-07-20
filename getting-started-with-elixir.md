@@ -176,4 +176,36 @@ There are two ways to do this. One, we can multiply the number by the Roman nume
     String.duplicate("I", num)
   end
 ```
-Or you can do it through a loop. I will use a loop to solve this problem because loops are fun! Remember Elixir is a functional language. So how can you loop without changing state of a variable. Take a deep breath because we're going to learn recursion. 
+Or you can do it through a loop. I will use a loop because the point of this exercise it to learn Elixir syntax. Remember Elixir is a functional language. So how can you loop without changing state of a variable? The answer is recursion!!! This is what the code should look like.  
+
+```elixir
+#lib/roman_numeral.ex
+defmodule RomanNumeral do
+  def converts(num) when num < 1 do
+    ""
+  end
+
+  def converts(num) do
+    "I" <> converts(num-1)
+  end
+end
+```
+
+You can probably figure out that `<>` is Elixir way to concatenate a String. For those of you who are still confused, let's walk through the code when the number is 2. When we call RomanNumeral.converts, it will try to find a method that matches that. `def converts(num) when num < 1 do` doesnt, but `def converts(num)` does. So it goes into this method `def converts(num) do`. It creates the String "I" and concatenate it to `converts(num-1)` which is really saying converts(1). Again, we know the first method doesn't match, so it goes into `def converts(num)` again. This time, remeber num is 1. So it again creates a "I" string, then calls converts again on num - 1 which is 0. Calling converts on 0 will return `""` because num is less than 1. Still confused? Think of it like this
+
+2 -> 1 + 1 + 0 -> "I" <> "I" <> "" -> "II"
+
+```elixir
+#lib/roman_numeral.ex
+defmodule RomanNumeral do
+  def converts(num) when num < 1 do
+    ""
+  end
+
+  def converts(num) do
+    "I" <> converts(num-1)
+  end
+end
+```
+
+If you are still confuse, watch this video on recursion [\\TODO find video]
