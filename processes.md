@@ -10,7 +10,7 @@ I'm alive!
 #PID<0.65.0>
 ```
 
-What happened here? We created a process and told it to print `I'm alive!`. Our process executed right away. Then it exited because it was done with the task. The second line `#PID<0.65.0>` is the process identifier (PID). PID are unique to a It is the return value when we call `spawn`. Note your PID number maybe be different than mine but that's ok. To see that spawn actually create a new process, let's print out its PID. 
+What happened here? We created a process and told it to print `I'm alive!`. Our process executed right away. Then it exited because it was done with the task. The second line `#PID<0.65.0>` is the process identifier (PID). It is the return value when we call `spawn`. PID are unique. We can use it find more information about the process or send messages to it. Note your PID number maybe be different than mine. To see that spawn actually create a new process, let's print out its PID. 
 
 ```bash 
 > self
@@ -21,7 +21,10 @@ Minion PID #PID<0.67.0>
 #PID<0.67.0>
 ```
 
-Two things to note here. `self` refers to the current process PID. `inspect` converts the PID into formatted string. First we asked the current process (iex) PID. Then we created a new processes 
+Two things happened here. First we called `self` to see the current process PID. When we spawn a new process, we added the "Minion PID " to clarify that the PID comes from the new process. We added `inspect` in front of `self` to converts the PID into formatted string. 
+
+Elixir provides the [Process](http://elixir-lang.org/docs/stable/elixir/Process.html) module to let us interact with  the process. 
+
 
 Notice I had to use inspect in order to print out the PID with the string. Your 
 
