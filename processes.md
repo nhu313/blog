@@ -2,7 +2,7 @@ Processes
 ====================
 In Elixir, processes are lightweight, concurrent, independent 'worker'. They are similar to thread, but they are not the same as the operating system process or thread. They are Erlang's processes. You can create thousands of these on a personal computer without much trouble. In this blog, we will walk learn how to create and use processes. I assume you are familiar with Elixir. If you are not, check out the "Getting Started" guide. 
 
-Alright, let's fire up our `iex` in the command line and get started. To create a new process, call the Kernel `spawn` function. (http://elixir-lang.org/docs/stable/elixir/Kernel.html#spawn/1) 
+Alright, let's fire up our `iex` in the command line and get started. To create a new process, call the Kernel [spawn](http://elixir-lang.org/docs/stable/elixir/Kernel.html#spawn/1) function. 
 
 ```bash 
 > spawn(fn -> IO.puts "I'm alive!" end)
@@ -23,12 +23,9 @@ Minion PID #PID<0.67.0>
 
 Two things happened here. First we called `self` to see the current process PID. When we spawn a new process, we added the "Minion PID " to clarify that the PID comes from the new process. We added `inspect` in front of `self` to converts the PID into formatted string. 
 
-Elixir provides the [Process](http://elixir-lang.org/docs/stable/elixir/Process.html) module to let us interact with  the process. 
+Elixir provides the [Process](http://elixir-lang.org/docs/stable/elixir/Process.html) module to let us interact with  the process.
 
-
-Notice I had to use inspect in order to print out the PID with the string. Your 
-
-The more common way is to call it with a module `spawn(module, fun, args)`. 
+The more common way is to call it with a module `spawn(module, fun, args)`. The functions allow you to pass in arguements as the first one doesn't. 
 
 
 There are two ways you can call `spawn` with an anonymous function. Let's start your iex. 
