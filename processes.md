@@ -1,23 +1,32 @@
 Processes
 ====================
-In Elixir, processes are lightweight, concurrent, independent 'worker'. They are not the same as the operating system process or thread. I can create thousands of these processes without a problem.
+In Elixir, processes are lightweight, concurrent, independent 'worker'. They are similar to thread, but they are not the same as the operating system process or thread. They are Erlang's processes. You can create thousands of these on a personal computer without much trouble. In this blog, we will walk learn how to create and use processes. I assume you are familiar with Elixir. If you are not, check out the "Getting Started" guide. 
 
-To create a new process, you call the Kernel `spawn` function. Let's fire up our `iex` in the command line and start.
+Alright, let's fire up our `iex` in the command line and get started. To create a new process, call the Kernel `spawn` function. (http://elixir-lang.org/docs/stable/elixir/Kernel.html#spawn/1) 
 
 ```bash 
-> minion = spawn(fn -> IO.puts "I'm alive!" end)
+> spawn(fn -> IO.puts "I'm alive!" end)
 I'm alive!
 #PID<0.65.0>
 ```
 
-What happened here? We created a process and told it to print `I'm alive!`. Our process executed right away. Then it died because it was done with its task. Notice that our process executed before our binding happen. It is too fast. To slow it down, let's make it sleep. 
+What happened here? We created a process and told it to print `I'm alive!`. Our process executed right away. Then it exited because it was done with the task. The second line `#PID<0.65.0>` is the process identifier (PID). PID are unique to a It is the return value when we call `spawn`. Note your PID number maybe be different than mine but that's ok. To see that spawn actually create a new process, let's print out its PID. 
 
+```bash 
+> self
+#PID<0.53.0>
 
-Note minion is binded to PID (process identifier). (Your PID number might be different than mine.) 
+> spawn(fn -> IO.puts "Minion PID #{insepct self}" end)
+Minion PID #PID<0.67.0>
+#PID<0.67.0>
+```
 
+Two things to note here. `self` refers to the current process PID. `inspect` converts the PID into formatted string. First we asked the current process (iex) PID. Then we created a new processes 
 
+Notice I had to use inspect in order to print out the PID with the string. Your 
 
-When you call `spawn` or any variation of `spawn`, you will get a PID (process identifier) back. You can use this PID to send messages to the process or find out more information about the process.
+The more common way is to call it with a module `spawn(module, fun, args)`. 
+
 
 There are two ways you can call `spawn` with an anonymous function. Let's start your iex. 
 
@@ -29,6 +38,15 @@ or you can call spawn  `spawn(module, fun, args)`
 
 
 
+
+
+
+
+
+
+
+
+-----------------------------------------------
 
 11 Processes
 
