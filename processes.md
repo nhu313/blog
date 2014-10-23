@@ -1,8 +1,12 @@
 Processes
 ====================
-In Elixir, processes are lightweight, concurrent, independent 'worker'. They are similar to thread, but they are not the same as the operating system process or thread. They are Erlang's processes. You can create thousands of these on a personal computer without much trouble. In this blog, we will walk learn how to create and use processes. I assume you are familiar with Elixir. If you are not, check out the "Getting Started" guide. 
+Process is a unit of concurrency in Elixir. It is lightweight, concurrent, independent. You can create thousands of these on a personal computer without much trouble. In this blog, we will walk learn how to create and use processes. I assume you are familiar with Elixir. If you are not, check out the "Getting Started" guide. 
 
-Alright, let's fire up our `iex` in the command line and get started. To create a new process, call the Kernel [spawn](http://elixir-lang.org/docs/stable/elixir/Kernel.html#spawn/1) function. 
+Alright, let's fire up our `iex` in the command line and get started. The interactive shell runs on a process. You can check a process 
+
+
+To create a new process, call the Kernel [spawn](http://elixir-lang.org/docs/stable/elixir/Kernel.html#spawn/1) function. 
+
 
 ```bash 
 > spawn(fn -> IO.puts "I'm alive!" end)
@@ -10,7 +14,7 @@ I'm alive!
 #PID<0.65.0>
 ```
 
-What happened here? We created a process and told it to print `I'm alive!`. Our process executed right away. Then it exited because it was done with the task. The second line `#PID<0.65.0>` is the process identifier (PID). It is the return value when we call `spawn`. PID are unique. We can use it find more information about the process or send messages to it. Note your PID number maybe be different than mine. To see that spawn actually create a new process, let's print out its PID. 
+What happened? We created a process and told it to print `I'm alive!`. Our process executed right away. Then it exited because it was done with the task. The second line `#PID<0.65.0>` is the process identifier (PID). It is the return value when we call `spawn`. PID are unique. We can use it find more information about the process or send messages to it. Note your PID number maybe be different than mine. To see that spawn actually create a new process, let's print out its PID. 
 
 ```bash 
 > self
