@@ -1,5 +1,14 @@
 Anonymous function in Elixir is express as follow:
+
+```elixir
 fn(arguments) -> body end
+```
+
+Or if you have no argument:
+
+```elixir
+fn -> body end
+```
 
 You can call the function like this:
 
